@@ -5,13 +5,14 @@
     question: { label: "Question" }
   };
 
-  const INTERNAL_SELECTOR = ".study-highlighter-toolbar, .study-highlighter-action-popup";
+  const INTERNAL_SELECTOR = ".study-highlighter-toolbar, .study-highlighter-action-popup, .study-highlighter-note-modal";
   const MARK_SELECTOR = "mark.study-highlighter-mark";
 
   let selectedCategory = "important";
   let savedRange = null;
   let toolbar = null;
   let actionPopup = null;
+  let noteModal = null;
 
   function sendMessage(message) {
     return new Promise((resolve) => {
@@ -178,6 +179,132 @@
     }
   }
 
+  function requestHighlightNote() {
+    return new Promise((resolve) => {
+      const previouslyFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+      const modal = ensureNoteModal();
+      const panel = modal.querySelector(".study-highlighter-note-modal__panel");
+      const textarea = modal.querySelector("#study-highlighter-note-input");
+      const cancelButton = modal.querySelector("[data-note-action='cancel']");
+      const saveButton = modal.querySelector("[data-note-action='save']");
+      let isSettled = false;
+
+      function close(note) {
+        if (isSettled) {
+          return;
+        }
+
+        isSettled = true;
+        modal.classList.remove("is-visible", "is-submitting");
+        document.removeEventListener("keydown", handleKeydown, true);
+        modal.removeEventListener("click", handleBackdropClick);
+        cancelButton.removeEventListener("click", handleCancelClick);
+        saveButton.removeEventListener("click", handleSaveClick);
+
+        window.setTimeout(() => {
+          modal.hidden = true;
+          textarea.value = "";
+          if (previouslyFocused && document.contains(previouslyFocused)) {
+            previouslyFocused.focus({ preventScroll: true });
+          }
+        }, 220);
+
+        resolve(note);
+      }
+
+      function save() {
+        modal.classList.add("is-submitting");
+        close(textarea.value.trim());
+      }
+
+      function handleCancelClick() {
+        close(null);
+      }
+
+      function handleSaveClick() {
+        save();
+      }
+
+      function handleBackdropClick(event) {
+        if (!panel.contains(event.target)) {
+          close(null);
+        }
+      }
+
+      function handleKeydown(event) {
+        if (event.key === "Escape") {
+          event.preventDefault();
+          close(null);
+          return;
+        }
+
+        if (event.key === "Enter" && !event.shiftKey && event.target === textarea) {
+          event.preventDefault();
+          save();
+          return;
+        }
+
+        if (event.key !== "Tab") {
+          return;
+        }
+
+        const focusable = [textarea, cancelButton, saveButton];
+        const currentIndex = focusable.indexOf(document.activeElement);
+        const nextIndex = event.shiftKey
+          ? (currentIndex <= 0 ? focusable.length - 1 : currentIndex - 1)
+          : (currentIndex === focusable.length - 1 ? 0 : currentIndex + 1);
+
+        event.preventDefault();
+        focusable[nextIndex].focus();
+      }
+
+      textarea.value = "";
+      modal.hidden = false;
+      modal.addEventListener("click", handleBackdropClick);
+      cancelButton.addEventListener("click", handleCancelClick);
+      saveButton.addEventListener("click", handleSaveClick);
+      document.addEventListener("keydown", handleKeydown, true);
+
+      requestAnimationFrame(() => {
+        modal.classList.add("is-visible");
+        textarea.focus({ preventScroll: true });
+      });
+    });
+  }
+
+  function ensureNoteModal() {
+    if (noteModal) {
+      return noteModal;
+    }
+
+    noteModal = document.createElement("div");
+    noteModal.className = "study-highlighter-note-modal";
+    noteModal.hidden = true;
+    noteModal.innerHTML = `
+      <div class="study-highlighter-note-modal__panel" role="dialog" aria-modal="true" aria-labelledby="study-highlighter-note-title" aria-describedby="study-highlighter-note-helper">
+        <span class="study-highlighter-note-modal__eyebrow">ANNOTATION / OPTIONAL</span>
+        <div class="study-highlighter-note-modal__header">
+          <p class="study-highlighter-note-modal__index">04</p>
+          <h2 id="study-highlighter-note-title">Add note</h2>
+        </div>
+        <label class="study-highlighter-note-modal__field" for="study-highlighter-note-input">
+          <span>Highlight note</span>
+          <textarea id="study-highlighter-note-input" rows="4" placeholder="Write a short annotation"></textarea>
+        </label>
+        <p class="study-highlighter-note-modal__helper" id="study-highlighter-note-helper">optional annotation</p>
+        <div class="study-highlighter-note-modal__actions">
+          <button type="button" data-note-action="cancel">Cancel</button>
+          <button type="button" data-note-action="save">
+            <span class="study-highlighter-note-modal__save-mark">+</span>
+            <span>Save</span>
+          </button>
+        </div>
+      </div>
+    `;
+    document.documentElement.appendChild(noteModal);
+    return noteModal;
+  }
+
   function handleSelectionChange() {
     setTimeout(() => {
       const selection = window.getSelection();
@@ -241,14 +368,19 @@
       return;
     }
 
-    const note = window.prompt("Add an optional note for this highlight:", "") || "";
+    const note = await requestHighlightNote();
+    if (note === null) {
+      hideToolbar();
+      return;
+    }
+
     const highlight = {
       id: createId(),
       text,
       url: location.href,
       title: document.title || location.hostname || location.href,
       category: selectedCategory,
-      note: note.trim(),
+      note,
       createdAt: new Date().toISOString()
     };
 

@@ -202,6 +202,301 @@ mark.question,
   color: #ffffff;
 }
 
+.study-highlighter-note-modal {
+  --note-paper: #fbfbf6;
+  --note-paper-warm: #f3f0e8;
+  --note-ink: #050505;
+  --note-muted: #5f5f68;
+  --note-line: rgba(5, 5, 5, 0.16);
+  --note-blue: #0047ff;
+  --note-magenta: #ff2bbd;
+  --note-cyan: #00e5ff;
+  --note-acid: #d7ff00;
+  align-items: center;
+  background:
+    linear-gradient(135deg, rgba(5, 5, 5, 0.18), rgba(5, 5, 5, 0.04)),
+    rgba(251, 251, 246, 0.72);
+  box-sizing: border-box;
+  color: var(--note-ink);
+  display: flex;
+  font-family: Archivo, Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  inset: 0;
+  justify-content: center;
+  opacity: 0;
+  padding: 28px;
+  pointer-events: none;
+  position: fixed;
+  transition: opacity 220ms ease;
+  z-index: 2147483647;
+}
+
+.study-highlighter-note-modal[hidden] {
+  display: none;
+}
+
+.study-highlighter-note-modal.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.study-highlighter-note-modal *,
+.study-highlighter-note-modal *::before,
+.study-highlighter-note-modal *::after {
+  box-sizing: border-box;
+}
+
+.study-highlighter-note-modal__panel {
+  background:
+    linear-gradient(90deg, rgba(5, 5, 5, 0.045) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(5, 5, 5, 0.035) 1px, transparent 1px),
+    radial-gradient(circle at 90% 6%, rgba(0, 229, 255, 0.22), transparent 28%),
+    linear-gradient(150deg, var(--note-paper), var(--note-paper-warm));
+  background-size: 22px 22px, 22px 22px, auto, auto;
+  border: 1px solid var(--note-ink);
+  box-shadow: 12px 12px 0 rgba(0, 71, 255, 0.2), 18px 18px 0 rgba(255, 43, 189, 0.64);
+  max-width: min(420px, calc(100vw - 44px));
+  min-height: 324px;
+  opacity: 0;
+  padding: 23px;
+  position: relative;
+  transform: translate3d(0, 18px, 0) rotate(-1.2deg) scale(0.94);
+  transform-origin: 52% 58%;
+  transition:
+    opacity 220ms ease,
+    box-shadow 260ms ease,
+    transform 320ms cubic-bezier(0.2, 1.45, 0.34, 1);
+  width: 420px;
+}
+
+.study-highlighter-note-modal.is-visible .study-highlighter-note-modal__panel {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) rotate(-1.2deg) scale(1);
+}
+
+.study-highlighter-note-modal__panel::before {
+  background: var(--note-acid);
+  border: 1px solid var(--note-ink);
+  box-shadow: 5px 5px 0 var(--note-ink);
+  color: var(--note-ink);
+  content: "TEXT FRAGMENT / NOTE";
+  font-family: "Space Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 9px;
+  font-weight: 700;
+  left: 18px;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  padding: 6px 8px;
+  position: absolute;
+  text-transform: uppercase;
+  top: -18px;
+  transform: rotate(-2deg);
+}
+
+.study-highlighter-note-modal__panel::after {
+  border: 1px solid var(--note-magenta);
+  content: "";
+  height: 42px;
+  pointer-events: none;
+  position: absolute;
+  right: -15px;
+  top: 18px;
+  transform: rotate(18deg);
+  width: 42px;
+}
+
+.study-highlighter-note-modal__eyebrow,
+.study-highlighter-note-modal__index,
+.study-highlighter-note-modal__field span,
+.study-highlighter-note-modal__helper,
+.study-highlighter-note-modal__actions button {
+  font-family: "Space Mono", "SFMono-Regular", Consolas, monospace;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.study-highlighter-note-modal__eyebrow {
+  color: var(--note-blue);
+  display: block;
+  font-size: 10px;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.study-highlighter-note-modal__header {
+  align-items: start;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 46px 1fr;
+  margin-bottom: 24px;
+}
+
+.study-highlighter-note-modal__index {
+  align-items: center;
+  background: var(--note-ink);
+  border: 1px solid var(--note-ink);
+  box-shadow: 5px 5px 0 var(--note-blue);
+  color: var(--note-cyan);
+  display: inline-flex;
+  font-size: 12px;
+  height: 38px;
+  justify-content: center;
+  line-height: 1;
+  margin: 4px 0 0;
+  transform: rotate(-4deg);
+  width: 38px;
+}
+
+.study-highlighter-note-modal h2 {
+  color: var(--note-ink);
+  font-size: 48px;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 0.86;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.study-highlighter-note-modal__field {
+  display: block;
+  position: relative;
+}
+
+.study-highlighter-note-modal__field span {
+  background: var(--note-paper);
+  border: 1px solid var(--note-ink);
+  color: var(--note-blue);
+  font-size: 9px;
+  left: 12px;
+  line-height: 1;
+  padding: 5px 7px;
+  position: absolute;
+  top: -11px;
+  transform: rotate(-1deg);
+  transition: background 180ms ease, color 180ms ease, transform 220ms cubic-bezier(0.2, 1.45, 0.34, 1);
+  z-index: 1;
+}
+
+.study-highlighter-note-modal__field:focus-within span {
+  background: var(--note-blue);
+  color: #ffffff;
+  transform: translate(-1px, -1px) rotate(-1deg);
+}
+
+.study-highlighter-note-modal textarea {
+  appearance: none;
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid var(--note-ink);
+  border-radius: 0;
+  box-shadow: inset 0 0 0 1px transparent;
+  color: var(--note-ink);
+  display: block;
+  font: 500 14px/1.45 Archivo, Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  min-height: 112px;
+  outline: none;
+  padding: 18px 14px 14px;
+  resize: vertical;
+  transition: background 180ms ease, border-color 180ms ease, box-shadow 220ms ease;
+  width: 100%;
+}
+
+.study-highlighter-note-modal textarea::placeholder {
+  color: rgba(95, 95, 104, 0.78);
+}
+
+.study-highlighter-note-modal textarea:focus {
+  background: #ffffff;
+  border-color: var(--note-blue);
+  box-shadow: inset 0 0 0 1px var(--note-blue), 5px 5px 0 rgba(255, 43, 189, 0.56);
+}
+
+.study-highlighter-note-modal__helper {
+  color: var(--note-muted);
+  font-size: 9px;
+  line-height: 1.35;
+  margin: 10px 0 0 122px;
+}
+
+.study-highlighter-note-modal__actions {
+  align-items: end;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 0.72fr 1fr;
+  margin-top: 24px;
+}
+
+.study-highlighter-note-modal__actions button {
+  align-items: center;
+  appearance: none;
+  background: #ffffff;
+  border: 1px solid var(--note-ink);
+  border-radius: 0;
+  color: var(--note-ink);
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 11px;
+  gap: 8px;
+  justify-content: center;
+  line-height: 1;
+  min-height: 43px;
+  padding: 0 13px;
+  transition:
+    background 180ms ease,
+    box-shadow 240ms cubic-bezier(0.2, 1.45, 0.34, 1),
+    color 180ms ease,
+    transform 240ms cubic-bezier(0.2, 1.45, 0.34, 1);
+}
+
+.study-highlighter-note-modal__actions button:focus-visible {
+  outline: 2px solid var(--note-blue);
+  outline-offset: 3px;
+}
+
+.study-highlighter-note-modal__actions button:hover {
+  box-shadow: 4px 4px 0 var(--note-ink);
+  transform: translate3d(-2px, -2px, 0) rotate(0.7deg);
+}
+
+.study-highlighter-note-modal__actions button:active {
+  box-shadow: 2px 2px 0 var(--note-ink);
+  transform: translate3d(0, 0, 0) scale(0.98);
+}
+
+.study-highlighter-note-modal__actions button[data-note-action="save"] {
+  background: var(--note-blue);
+  box-shadow: 5px 5px 0 var(--note-ink);
+  color: #ffffff;
+  font-size: 12px;
+  min-height: 50px;
+  transform: translate3d(4px, 0, 0) rotate(1deg);
+}
+
+.study-highlighter-note-modal__actions button[data-note-action="save"]:hover {
+  background: var(--note-ink);
+  box-shadow: 8px 8px 0 var(--note-magenta);
+  transform: translate3d(0, -3px, 0) rotate(1deg);
+}
+
+.study-highlighter-note-modal__save-mark {
+  align-items: center;
+  background: var(--note-acid);
+  border: 1px solid var(--note-ink);
+  color: var(--note-ink);
+  display: inline-flex;
+  font-size: 14px;
+  height: 20px;
+  justify-content: center;
+  line-height: 1;
+  transform: rotate(-8deg);
+  transition: transform 240ms cubic-bezier(0.2, 1.45, 0.34, 1);
+  width: 20px;
+}
+
+.study-highlighter-note-modal__actions button[data-note-action="save"]:hover .study-highlighter-note-modal__save-mark,
+.study-highlighter-note-modal.is-submitting .study-highlighter-note-modal__save-mark {
+  transform: rotate(82deg) scale(1.05);
+}
+
 .study-highlighter-toolbar {
   --toolbar-paper: #fbfbf6;
   --toolbar-ink: #050505;
@@ -509,6 +804,25 @@ mark.question,
 }
 
 @media (max-width: 520px) {
+  .study-highlighter-note-modal {
+    align-items: end;
+    padding: 18px;
+  }
+
+  .study-highlighter-note-modal__panel {
+    max-width: calc(100vw - 36px);
+    padding: 21px 18px 19px;
+    width: calc(100vw - 36px);
+  }
+
+  .study-highlighter-note-modal h2 {
+    font-size: 42px;
+  }
+
+  .study-highlighter-note-modal__helper {
+    margin-left: 74px;
+  }
+
   .study-highlighter-toolbar {
     gap: 9px;
     width: calc(100vw - 48px);
@@ -533,6 +847,10 @@ mark.question,
   .study-highlighter-toolbar,
   .study-highlighter-toolbar::after,
   .study-highlighter-toolbar button,
+  .study-highlighter-note-modal,
+  .study-highlighter-note-modal__panel,
+  .study-highlighter-note-modal__actions button,
+  .study-highlighter-note-modal__save-mark,
   .study-highlighter-action-popup,
   .study-highlighter-action-popup button {
     animation: none !important;
