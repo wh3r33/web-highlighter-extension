@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Study Highlighter</title>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <main class="app">
+      <header class="header">
+        <div>
+          <h1>Study Highlighter</h1>
+          <p>Saved study marks across the web</p>
+        </div>
+        <button class="export-button" id="exportButton" type="button">Export Markdown</button>
+      </header>
+
+      <section class="stats" aria-label="Highlight statistics">
+        <article class="stat-card">
+          <span class="stat-value" id="totalCount">0</span>
+          <span class="stat-label">Total Highlights</span>
+        </article>
+        <article class="stat-card">
+          <span class="stat-value" id="importantCount">0</span>
+          <span class="stat-label">Important</span>
+        </article>
+        <article class="stat-card">
+          <span class="stat-value" id="definitionCount">0</span>
+          <span class="stat-label">Definitions</span>
+        </article>
+        <article class="stat-card">
+          <span class="stat-value" id="questionCount">0</span>
+          <span class="stat-label">Questions</span>
+        </article>
+      </section>
+
+      <label class="search">
+        <span>Search highlights</span>
+        <input id="searchInput" type="search" placeholder="Search text, notes, titles, URLs">
+      </label>
+
+      <section class="empty-state" id="emptyState" hidden>
+        <div class="empty-icon"></div>
+        <p>Пока выделений нет.<br>Выделите текст на любой странице и нажмите Сохранить.</p>
+      </section>
+
+      <section class="groups" id="groups" aria-label="Saved highlights"></section>
+    </main>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
