@@ -51,21 +51,23 @@
     toolbar.setAttribute("role", "toolbar");
     toolbar.setAttribute("aria-label", "Highlight actions");
     toolbar.innerHTML = `
-      <button type="button" data-category="important" title="Important" aria-label="Important">
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3 3 21h18L12 3Z"></path><path d="M12 9v5"></path><path d="M12 18h.01"></path></svg>
-        <span>IMP</span>
-      </button>
-      <button type="button" data-category="definition" title="Definition" aria-label="Definition">
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"></path></svg>
-        <span>DEF</span>
-      </button>
-      <button type="button" data-category="question" title="Question" aria-label="Question">
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9.1 9a3 3 0 1 1 5.8 1c0 2-3 2-3 4"></path><path d="M12 17h.01"></path><circle cx="12" cy="12" r="10"></circle></svg>
-        <span>QST</span>
-      </button>
+      <div class="study-highlighter-toolbar__category-strip" aria-label="Highlight category">
+        <button type="button" data-category="important" title="Important" aria-label="Important">
+          <span class="study-highlighter-toolbar__index">01</span>
+          <span class="study-highlighter-toolbar__label">Important</span>
+        </button>
+        <button type="button" data-category="definition" title="Definition" aria-label="Definition">
+          <span class="study-highlighter-toolbar__index">02</span>
+          <span class="study-highlighter-toolbar__label">Definition</span>
+        </button>
+        <button type="button" data-category="question" title="Question" aria-label="Question">
+          <span class="study-highlighter-toolbar__index">03</span>
+          <span class="study-highlighter-toolbar__label">Question</span>
+        </button>
+      </div>
       <button type="button" data-action="save" title="Save highlight" aria-label="Save highlight">
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"></path><path d="M17 21v-8H7v8"></path><path d="M7 3v5h8"></path></svg>
-        <span>SAVE</span>
+        <span class="study-highlighter-toolbar__save-mark">+</span>
+        <span>Save</span>
       </button>
     `;
     document.documentElement.appendChild(toolbar);
