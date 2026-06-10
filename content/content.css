@@ -1,132 +1,224 @@
 .study-highlighter-mark {
-  border-radius: 5px;
+  border-radius: 0;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
   cursor: pointer;
-  padding: 1px 3px;
-  transition: box-shadow 150ms ease, filter 150ms ease;
+  padding: 0 4px 1px;
+  transition: background 180ms ease, box-shadow 180ms ease, filter 180ms ease;
 }
 
 .study-highlighter-mark:hover {
-  box-shadow: 0 0 0 2px rgba(17, 24, 39, 0.12);
-  filter: saturate(1.05);
+  filter: saturate(1.2);
+  box-shadow: 4px 4px 0 rgba(0, 71, 255, 0.2);
 }
 
 mark.important,
 .study-highlighter-mark.important {
-  background: #fff8e1;
-  border-bottom: 2px solid #ffd54f;
+  background: linear-gradient(90deg, rgba(255, 43, 189, 0.34), rgba(255, 43, 189, 0.14));
+  border-bottom: 2px solid #ff2bbd;
   color: inherit;
 }
 
 mark.definition,
 .study-highlighter-mark.definition {
-  background: #e8f5e9;
-  border-bottom: 2px solid #66bb6a;
+  background: linear-gradient(90deg, rgba(0, 71, 255, 0.28), rgba(0, 229, 255, 0.16));
+  border-bottom: 2px solid #0047ff;
   color: inherit;
 }
 
 mark.question,
 .study-highlighter-mark.question {
-  background: #fce4ec;
-  border-bottom: 2px solid #ec407a;
-  color: inherit;
+  background: #050505;
+  border-bottom: 2px solid #00e5ff;
+  color: #ffffff;
+}
+
+.study-highlighter-toolbar,
+.study-highlighter-action-popup {
+  background:
+    linear-gradient(90deg, rgba(5, 5, 5, 0.08) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(5, 5, 5, 0.08) 1px, transparent 1px),
+    #fbfbf6;
+  background-size: 18px 18px;
+  border: 1px solid #050505;
+  box-shadow: 8px 8px 0 #0047ff, 12px 12px 0 rgba(255, 43, 189, 0.85);
+  box-sizing: border-box;
+  color: #050505;
+  font-family: "Space Mono", "SFMono-Regular", Consolas, monospace;
+  opacity: 0;
+  pointer-events: none;
+  position: fixed;
+  transform: translateY(10px) rotate(-1deg) scale(0.98);
+  transition: opacity 180ms ease, transform 240ms cubic-bezier(0.2, 1.45, 0.34, 1);
+  z-index: 2147483647;
 }
 
 .study-highlighter-toolbar {
   align-items: center;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  box-shadow: 0 14px 38px rgba(17, 24, 39, 0.16), 0 4px 12px rgba(17, 24, 39, 0.08);
-  box-sizing: border-box;
   display: flex;
-  gap: 6px;
+  gap: 5px;
   left: 0;
-  opacity: 0;
-  padding: 7px;
-  pointer-events: none;
-  position: fixed;
+  max-width: calc(100vw - 24px);
+  padding: 9px;
   top: 0;
-  transform: translateY(4px);
-  transition: opacity 140ms ease, transform 140ms ease;
-  z-index: 2147483647;
 }
 
-.study-highlighter-toolbar.is-visible {
+.study-highlighter-toolbar::before {
+  background: #d7ff00;
+  border: 1px solid #050505;
+  content: "SELECTED TEXT / CLASSIFY";
+  font-size: 9px;
+  font-weight: 700;
+  left: 11px;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  padding: 5px 7px;
+  position: absolute;
+  text-transform: uppercase;
+  top: -19px;
+  transform: rotate(-2deg);
+}
+
+.study-highlighter-toolbar::after,
+.study-highlighter-action-popup::after {
+  border: 1px solid #ff2bbd;
+  content: "";
+  height: 34px;
+  pointer-events: none;
+  position: absolute;
+  right: -14px;
+  top: 10px;
+  transform: rotate(18deg);
+  width: 34px;
+}
+
+.study-highlighter-toolbar.is-visible,
+.study-highlighter-action-popup.is-visible {
   opacity: 1;
   pointer-events: auto;
-  transform: translateY(0);
+  transform: translateY(0) rotate(-1deg) scale(1);
 }
 
 .study-highlighter-toolbar button,
 .study-highlighter-action-popup button {
+  align-items: center;
   appearance: none;
-  border: 1px solid transparent;
-  border-radius: 8px;
-  color: #111827;
+  background: #ffffff;
+  border: 1px solid #050505;
+  box-sizing: border-box;
+  color: #050505;
   cursor: pointer;
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: 12px;
-  font-weight: 650;
+  display: inline-flex;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  gap: 6px;
+  justify-content: center;
+  letter-spacing: 0.02em;
   line-height: 1;
   margin: 0;
-}
-
-.study-highlighter-toolbar button {
-  background: #f9fafb;
-  height: 30px;
-  min-width: 30px;
-  padding: 0 10px;
-}
-
-.study-highlighter-toolbar button:hover {
-  background: #f3f4f6;
-  border-color: #e5e7eb;
-}
-
-.study-highlighter-toolbar button.is-active[data-category="important"] {
-  background: #fff8e1;
-  border-color: #ffd54f;
-}
-
-.study-highlighter-toolbar button.is-active[data-category="definition"] {
-  background: #e8f5e9;
-  border-color: #66bb6a;
-}
-
-.study-highlighter-toolbar button.is-active[data-category="question"] {
-  background: #fce4ec;
-  border-color: #ec407a;
-}
-
-.study-highlighter-action-popup {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  box-shadow: 0 14px 38px rgba(17, 24, 39, 0.16), 0 4px 12px rgba(17, 24, 39, 0.08);
-  box-sizing: border-box;
-  opacity: 0;
-  padding: 8px;
-  pointer-events: none;
-  position: fixed;
-  transform: translateY(4px);
-  transition: opacity 140ms ease, transform 140ms ease;
-  z-index: 2147483647;
-}
-
-.study-highlighter-action-popup.is-visible {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateY(0);
-}
-
-.study-highlighter-action-popup button {
-  background: #ffffff;
-  padding: 9px 11px;
+  min-height: 36px;
+  padding: 0 9px;
+  text-transform: uppercase;
+  transition: background 180ms ease, box-shadow 220ms cubic-bezier(0.2, 1.45, 0.34, 1), color 180ms ease, transform 220ms cubic-bezier(0.2, 1.45, 0.34, 1);
   white-space: nowrap;
 }
 
+.study-highlighter-toolbar button:focus-visible,
+.study-highlighter-action-popup button:focus-visible {
+  outline: 2px solid #0047ff;
+  outline-offset: 3px;
+}
+
+.study-highlighter-toolbar svg,
+.study-highlighter-action-popup svg {
+  fill: none;
+  flex: 0 0 auto;
+  height: 16px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+  width: 16px;
+}
+
+.study-highlighter-toolbar button:hover,
 .study-highlighter-action-popup button:hover {
-  background: #f9fafb;
+  box-shadow: 4px 4px 0 #050505;
+  transform: translate(-2px, -2px) rotate(1deg);
+}
+
+.study-highlighter-toolbar button:active,
+.study-highlighter-action-popup button:active {
+  transform: translate(0, 0) rotate(0deg);
+}
+
+.study-highlighter-toolbar button.is-active[data-category="important"] {
+  background: #ff2bbd;
+  color: #ffffff;
+}
+
+.study-highlighter-toolbar button.is-active[data-category="definition"] {
+  background: #0047ff;
+  color: #ffffff;
+}
+
+.study-highlighter-toolbar button.is-active[data-category="question"] {
+  background: #050505;
+  color: #00e5ff;
+}
+
+.study-highlighter-toolbar button[data-action="save"] {
+  background: #d7ff00;
+  color: #050505;
+}
+
+.study-highlighter-action-popup {
+  padding: 9px;
+}
+
+.study-highlighter-action-popup::before {
+  background: #0047ff;
+  color: #ffffff;
+  content: "MARK";
+  font-size: 9px;
+  font-weight: 700;
+  left: 9px;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  padding: 5px 7px;
+  position: absolute;
+  text-transform: uppercase;
+  top: -18px;
+}
+
+.study-highlighter-action-popup button {
+  min-height: 38px;
+  padding: 0 12px;
+}
+
+.study-highlighter-action-popup button:hover {
+  background: #ff2bbd;
+  color: #ffffff;
+}
+
+@media (max-width: 520px) {
+  .study-highlighter-toolbar {
+    flex-wrap: wrap;
+    width: calc(100vw - 24px);
+  }
+
+  .study-highlighter-toolbar button {
+    flex: 1 1 120px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .study-highlighter-mark,
+  .study-highlighter-toolbar,
+  .study-highlighter-toolbar button,
+  .study-highlighter-action-popup,
+  .study-highlighter-action-popup button {
+    transition-duration: 0.01ms !important;
+  }
 }

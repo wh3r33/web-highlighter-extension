@@ -4,6 +4,12 @@ const CATEGORY_LABELS = {
   question: "Question"
 };
 
+const CATEGORY_ARTIFACTS = {
+  important: "artifact.imp",
+  definition: "artifact.def",
+  question: "artifact.q"
+};
+
 let allHighlights = [];
 let collapsedGroups = new Set();
 let editingNoteId = null;
@@ -91,8 +97,24 @@ function createElement(tagName, className, textContent) {
   return element;
 }
 
+function icon(name) {
+  const paths = {
+    open: '<path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>',
+    note: '<path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"></path>',
+    save: '<path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"></path><path d="M17 21v-8H7v8"></path><path d="M7 3v5h8"></path>',
+    cancel: '<path d="M18 6 6 18"></path><path d="m6 6 12 12"></path>',
+    delete: '<path d="M3 6h18"></path><path d="M8 6V4h8v2"></path><path d="M19 6l-1 14H6L5 6"></path><path d="M10 11v5"></path><path d="M14 11v5"></path>'
+  };
+  return `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">${paths[name]}</svg>`;
+}
+
+function setButtonContent(button, iconName, label) {
+  button.innerHTML = `${icon(iconName)}<span>${label}</span>`;
+}
+
 function createHighlightCard(highlight) {
-  const card = createElement("article", "highlight-card");
+  const card = createElement("article", `highlight-card is-${highlight.category}`);
+  card.dataset.artifact = CATEGORY_ARTIFACTS[highlight.category] || "artifact";
   card.tabIndex = 0;
   card.setAttribute("role", "button");
   card.setAttribute("aria-label", `Open ${highlight.title || getHostname(highlight.url)}`);
@@ -109,16 +131,23 @@ function createHighlightCard(highlight) {
     }
   });
 
-  const top = createElement("div", "card-top");
-  top.appendChild(createElement("span", `category-square ${highlight.category}`));
-  top.appendChild(createElement("span", "category-label", CATEGORY_LABELS[highlight.category]));
+  const source = createElement("div", "card-source");
+  source.appendChild(createElement("span", "card-site", getHostname(highlight.url)));
+  source.appendChild(createElement("span", "card-title", highlight.title || "Untitled page"));
+  card.appendChild(source);
 
-  const deleteButton = createElement("button", "delete-button", "×");
+  const deleteButton = createElement("button", "delete-button");
   deleteButton.type = "button";
   deleteButton.title = "Delete highlight";
+  deleteButton.setAttribute("aria-label", "Delete highlight");
+  deleteButton.innerHTML = icon("delete");
   deleteButton.addEventListener("click", async () => {
     await deleteHighlight(highlight.id);
   });
+
+  const top = createElement("div", "card-top");
+  top.appendChild(createElement("span", `category-square ${highlight.category}`));
+  top.appendChild(createElement("span", "category-label", CATEGORY_LABELS[highlight.category]));
   top.appendChild(deleteButton);
 
   const text = createElement("p", "card-text", highlight.text);
@@ -132,15 +161,17 @@ function createHighlightCard(highlight) {
     card.appendChild(editor);
 
     const editActions = createElement("div", "card-actions");
-    const cancelButton = createElement("button", "cancel-note-button", "Cancel");
+    const cancelButton = createElement("button", "cancel-note-button");
     cancelButton.type = "button";
+    setButtonContent(cancelButton, "cancel", "Cancel");
     cancelButton.addEventListener("click", () => {
       editingNoteId = null;
       render();
     });
 
-    const saveButton = createElement("button", "save-note-button", "Save note");
+    const saveButton = createElement("button", "save-note-button");
     saveButton.type = "button";
+    setButtonContent(saveButton, "save", "Save note");
     saveButton.addEventListener("click", async () => {
       await updateNote(highlight.id, editor.value.trim());
     });
@@ -152,18 +183,19 @@ function createHighlightCard(highlight) {
   }
 
   const meta = createElement("div", "card-meta");
-  meta.appendChild(createElement("span", "card-title", highlight.title || "Untitled page"));
   meta.appendChild(createElement("span", "card-url", getHostname(highlight.url)));
   meta.appendChild(createElement("span", "card-date", formatDate(highlight.createdAt)));
   card.appendChild(meta);
 
   const actions = createElement("div", "card-actions");
-  const openButton = createElement("button", "open-button", "Open page");
+  const openButton = createElement("button", "open-button");
   openButton.type = "button";
+  setButtonContent(openButton, "open", "Open");
   openButton.addEventListener("click", () => chrome.tabs.create({ url: highlight.url }));
 
-  const noteButton = createElement("button", "note-button", highlight.note ? "Edit note" : "Add note");
+  const noteButton = createElement("button", "note-button");
   noteButton.type = "button";
+  setButtonContent(noteButton, "note", highlight.note ? "Edit note" : "Add note");
   noteButton.addEventListener("click", () => {
     editingNoteId = highlight.id;
     render();
@@ -186,7 +218,15 @@ function render() {
   if (visibleHighlights.length === 0) {
     if (allHighlights.length !== 0) {
       const emptySearch = createElement("section", "empty-state");
-      emptySearch.innerHTML = "<p>No highlights match your search.</p>";
+      emptySearch.innerHTML = `
+        <div class="empty-graphic" aria-hidden="true">
+          <span class="empty-word">404</span>
+          <span class="empty-cross">+</span>
+          <span class="empty-box"></span>
+        </div>
+        <h2>No matching fragments</h2>
+        <p>Try another term, note, website, or title from the archive.</p>
+      `;
       elements.groups.appendChild(emptySearch);
     }
     return;

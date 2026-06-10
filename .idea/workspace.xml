@@ -5,11 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cf01ee5f-3023-40ae-919d-00a833bad307" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/web-highlighter-extension.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/content/content.css" beforeDir="false" afterPath="$PROJECT_DIR$/content/content.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/content/content.js" beforeDir="false" afterPath="$PROJECT_DIR$/content/content.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/popup/popup.css" beforeDir="false" afterPath="$PROJECT_DIR$/popup/popup.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/popup/popup.html" beforeDir="false" afterPath="$PROJECT_DIR$/popup/popup.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/popup/popup.js" beforeDir="false" afterPath="$PROJECT_DIR$/popup/popup.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,13 +31,14 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "JavaScript Debug.popup.html.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "main",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -59,7 +61,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1781080883289</updated>
-      <workItem from="1781080884299" duration="2075000" />
+      <workItem from="1781080884299" duration="6011000" />
     </task>
     <servers />
   </component>

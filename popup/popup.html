@@ -3,46 +3,84 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Study Highlighter</title>
+    <title>Web Highlights</title>
     <link rel="stylesheet" href="popup.css">
   </head>
   <body>
     <main class="app">
-      <header class="header">
-        <div>
-          <h1>Study Highlighter</h1>
-          <p>Saved study marks across the web</p>
-        </div>
-        <button class="export-button" id="exportButton" type="button">Export Markdown</button>
+      <div class="stage-lines" aria-hidden="true">
+        <span class="line line-a"></span>
+        <span class="line line-b"></span>
+        <span class="line line-c"></span>
+        <span class="orbital orbital-a"></span>
+        <span class="orbital orbital-b"></span>
+        <span class="symbol symbol-a">+</span>
+        <span class="symbol symbol-b">/</span>
+        <span class="symbol symbol-c">*</span>
+      </div>
+
+      <header class="hero">
+        <p class="micro-label">WEB / HIGHLIGHT / EXHIBITION</p>
+        <h1 aria-label="Highlights">
+          <span class="hero-line hero-line-a">High</span>
+          <span class="hero-line hero-line-b">lights</span>
+        </h1>
+        <p class="hero-copy">Collected text fragments arranged as a small internet exhibition.</p>
+        <span class="edition-tag" aria-hidden="true">ed.01</span>
       </header>
 
       <section class="stats" aria-label="Highlight statistics">
-        <article class="stat-card">
+        <article class="stat-card total-stat">
+          <span class="stat-label">Index total</span>
           <span class="stat-value" id="totalCount">0</span>
-          <span class="stat-label">Total Highlights</span>
         </article>
-        <article class="stat-card">
-          <span class="stat-value" id="importantCount">0</span>
+        <article class="stat-card important-stat">
           <span class="stat-label">Important</span>
+          <span class="stat-value" id="importantCount">0</span>
         </article>
-        <article class="stat-card">
+        <article class="stat-card definition-stat">
+          <span class="stat-label">Definition</span>
           <span class="stat-value" id="definitionCount">0</span>
-          <span class="stat-label">Definitions</span>
         </article>
-        <article class="stat-card">
+        <article class="stat-card question-stat">
+          <span class="stat-label">Question</span>
           <span class="stat-value" id="questionCount">0</span>
-          <span class="stat-label">Questions</span>
         </article>
       </section>
 
-      <label class="search">
-        <span>Search highlights</span>
-        <input id="searchInput" type="search" placeholder="Search text, notes, titles, URLs">
-      </label>
+      <section class="control-panel" aria-label="Search and export">
+        <label class="search">
+          <span class="search-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false">
+              <path d="m21 21-4.35-4.35m1.35-5.15a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z"></path>
+            </svg>
+          </span>
+          <span class="sr-only">Search the archive</span>
+          <input id="searchInput" type="search" placeholder="Search fragments">
+        </label>
+
+        <button class="export-button" id="exportButton" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M12 3v12m0 0 4-4m-4 4-4-4"></path>
+            <path d="M5 17v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2"></path>
+          </svg>
+          <span>MD</span>
+        </button>
+      </section>
+
+      <section class="section-heading" aria-label="Saved highlight list heading">
+        <p class="micro-label">CURATED BY WEBSITE</p>
+        <h2>Fragments</h2>
+      </section>
 
       <section class="empty-state" id="emptyState" hidden>
-        <div class="empty-icon"></div>
-        <p>Пока выделений нет.<br>Выделите текст на любой странице и нажмите Сохранить.</p>
+        <div class="empty-graphic" aria-hidden="true">
+          <span class="empty-word">NO</span>
+          <span class="empty-cross">+</span>
+          <span class="empty-box"></span>
+        </div>
+        <h2>No fragments yet</h2>
+        <p>Select text on any page, classify it, and save the first artifact.</p>
       </section>
 
       <section class="groups" id="groups" aria-label="Saved highlights"></section>
