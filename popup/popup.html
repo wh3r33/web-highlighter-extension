@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Web Highlights</title>
+    <title>Веб-выделения</title>
     <link rel="stylesheet" href="popup.css">
   </head>
   <body>
@@ -20,43 +20,43 @@
       </div>
 
       <header class="hero">
-        <p class="micro-label">WEB / HIGHLIGHT / EXHIBITION</p>
-        <h1 aria-label="Highlights">
-          <span class="hero-line hero-line-a">High</span>
-          <span class="hero-line hero-line-b">lights</span>
+        <p class="micro-label">ВЕБ / ВЫДЕЛЕНИЯ / ВЫСТАВКА</p>
+        <h1 aria-label="Выделения">
+          <span class="hero-line hero-line-a">Выде</span>
+          <span class="hero-line hero-line-b">ления</span>
         </h1>
-        <p class="hero-copy">Collected text fragments arranged as a small internet exhibition.</p>
-        <span class="edition-tag" aria-hidden="true">ed.01</span>
+        <p class="hero-copy">Собранные текстовые фрагменты, оформленные как небольшая интернет-выставка.</p>
+        <span class="edition-tag" aria-hidden="true">вып.01</span>
       </header>
 
-      <section class="stats" aria-label="Highlight statistics">
+      <section class="stats" aria-label="Статистика выделений">
         <article class="stat-card total-stat">
-          <span class="stat-label">Index total</span>
+          <span class="stat-label">Всего в индексе</span>
           <span class="stat-value" id="totalCount">0</span>
         </article>
         <article class="stat-card important-stat">
-          <span class="stat-label">Important</span>
+          <span class="stat-label">Важное</span>
           <span class="stat-value" id="importantCount">0</span>
         </article>
         <article class="stat-card definition-stat">
-          <span class="stat-label">Definition</span>
+          <span class="stat-label">Определение</span>
           <span class="stat-value" id="definitionCount">0</span>
         </article>
         <article class="stat-card question-stat">
-          <span class="stat-label">Question</span>
+          <span class="stat-label">Вопрос</span>
           <span class="stat-value" id="questionCount">0</span>
         </article>
       </section>
 
-      <section class="control-panel" aria-label="Search and export">
+      <section class="control-panel" aria-label="Поиск и экспорт">
         <label class="search">
           <span class="search-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" focusable="false">
               <path d="m21 21-4.35-4.35m1.35-5.15a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z"></path>
             </svg>
           </span>
-          <span class="sr-only">Search the archive</span>
-          <input id="searchInput" type="search" placeholder="Search fragments">
+          <span class="sr-only">Поиск по архиву</span>
+          <input id="searchInput" type="search" placeholder="Искать фрагменты">
         </label>
 
         <button class="export-button" id="exportButton" type="button">
@@ -68,22 +68,22 @@
         </button>
       </section>
 
-      <section class="section-heading" aria-label="Saved highlight list heading">
-        <p class="micro-label">CURATED BY WEBSITE</p>
-        <h2>Fragments</h2>
+      <section class="section-heading" aria-label="Заголовок списка сохраненных выделений">
+        <p class="micro-label">СОБРАНО ПО САЙТАМ</p>
+        <h2>Фрагменты</h2>
       </section>
 
       <section class="empty-state" id="emptyState" hidden>
         <div class="empty-graphic" aria-hidden="true">
-          <span class="empty-word">NO</span>
+          <span class="empty-word">НЕТ</span>
           <span class="empty-cross">+</span>
           <span class="empty-box"></span>
         </div>
-        <h2>No fragments yet</h2>
-        <p>Select text on any page, classify it, and save the first artifact.</p>
+        <h2>Фрагментов пока нет</h2>
+        <p>Выделите текст на любой странице, выберите категорию и сохраните первый артефакт.</p>
       </section>
 
-      <section class="groups" id="groups" aria-label="Saved highlights"></section>
+      <section class="groups" id="groups" aria-label="Сохраненные выделения"></section>
     </main>
 
     <script src="popup.js"></script>

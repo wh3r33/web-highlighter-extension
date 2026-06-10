@@ -1,7 +1,7 @@
 const CATEGORY_LABELS = {
-  important: "Important",
-  definition: "Definition",
-  question: "Question"
+  important: "Важное",
+  definition: "Определение",
+  question: "Вопрос"
 };
 
 const CATEGORY_ARTIFACTS = {
@@ -117,7 +117,7 @@ function createHighlightCard(highlight) {
   card.dataset.artifact = CATEGORY_ARTIFACTS[highlight.category] || "artifact";
   card.tabIndex = 0;
   card.setAttribute("role", "button");
-  card.setAttribute("aria-label", `Open ${highlight.title || getHostname(highlight.url)}`);
+  card.setAttribute("aria-label", `Открыть ${highlight.title || getHostname(highlight.url)}`);
   card.addEventListener("click", (event) => {
     if (event.target.closest("button, textarea, input, a")) {
       return;
@@ -133,13 +133,13 @@ function createHighlightCard(highlight) {
 
   const source = createElement("div", "card-source");
   source.appendChild(createElement("span", "card-site", getHostname(highlight.url)));
-  source.appendChild(createElement("span", "card-title", highlight.title || "Untitled page"));
+  source.appendChild(createElement("span", "card-title", highlight.title || "Страница без названия"));
   card.appendChild(source);
 
   const deleteButton = createElement("button", "delete-button");
   deleteButton.type = "button";
-  deleteButton.title = "Delete highlight";
-  deleteButton.setAttribute("aria-label", "Delete highlight");
+  deleteButton.title = "Удалить выделение";
+  deleteButton.setAttribute("aria-label", "Удалить выделение");
   deleteButton.innerHTML = icon("delete");
   deleteButton.addEventListener("click", async () => {
     await deleteHighlight(highlight.id);
@@ -157,13 +157,13 @@ function createHighlightCard(highlight) {
   if (editingNoteId === highlight.id) {
     const editor = createElement("textarea", "note-editor");
     editor.value = highlight.note || "";
-    editor.placeholder = "Add a note";
+    editor.placeholder = "Добавить заметку";
     card.appendChild(editor);
 
     const editActions = createElement("div", "card-actions");
     const cancelButton = createElement("button", "cancel-note-button");
     cancelButton.type = "button";
-    setButtonContent(cancelButton, "cancel", "Cancel");
+    setButtonContent(cancelButton, "cancel", "Отмена");
     cancelButton.addEventListener("click", () => {
       editingNoteId = null;
       render();
@@ -171,7 +171,7 @@ function createHighlightCard(highlight) {
 
     const saveButton = createElement("button", "save-note-button");
     saveButton.type = "button";
-    setButtonContent(saveButton, "save", "Save note");
+    setButtonContent(saveButton, "save", "Сохранить заметку");
     saveButton.addEventListener("click", async () => {
       await updateNote(highlight.id, editor.value.trim());
     });
@@ -190,12 +190,12 @@ function createHighlightCard(highlight) {
   const actions = createElement("div", "card-actions");
   const openButton = createElement("button", "open-button");
   openButton.type = "button";
-  setButtonContent(openButton, "open", "Open");
+  setButtonContent(openButton, "open", "Открыть");
   openButton.addEventListener("click", () => chrome.tabs.create({ url: highlight.url }));
 
   const noteButton = createElement("button", "note-button");
   noteButton.type = "button";
-  setButtonContent(noteButton, "note", highlight.note ? "Edit note" : "Add note");
+  setButtonContent(noteButton, "note", highlight.note ? "Изменить заметку" : "Добавить заметку");
   noteButton.addEventListener("click", () => {
     editingNoteId = highlight.id;
     render();
@@ -224,8 +224,8 @@ function render() {
           <span class="empty-cross">+</span>
           <span class="empty-box"></span>
         </div>
-        <h2>No matching fragments</h2>
-        <p>Try another term, note, website, or title from the archive.</p>
+        <h2>Подходящих фрагментов нет</h2>
+        <p>Попробуйте другой термин, заметку, сайт или заголовок из архива.</p>
       `;
       elements.groups.appendChild(emptySearch);
     }
@@ -285,20 +285,20 @@ async function updateNote(id, note) {
 
 function buildMarkdown(highlights) {
   const pages = groupByUrl(highlights);
-  const lines = ["# Study Highlights", ""];
+  const lines = ["# Учебные выделения", ""];
 
   pages.forEach((items, url) => {
     const title = items[0].title || getHostname(url);
     lines.push(`## ${escapeMarkdown(title)}`, "");
-    lines.push("Source:");
+    lines.push("Источник:");
     lines.push(url, "");
 
     items.forEach((highlight) => {
-      lines.push("Category:");
+      lines.push("Категория:");
       lines.push(CATEGORY_LABELS[highlight.category], "");
       lines.push(`> ${escapeMarkdown(highlight.text).replace(/\n/g, "\n> ")}`, "");
       if (highlight.note) {
-        lines.push("Note:");
+        lines.push("Заметка:");
         lines.push(escapeMarkdown(highlight.note), "");
       }
     });

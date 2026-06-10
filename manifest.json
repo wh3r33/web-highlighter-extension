@@ -1,15 +1,15 @@
 {
   "manifest_version": 3,
-  "name": "Study Highlighter",
+  "name": "Учебный маркер",
   "version": "1.0.0",
-  "description": "Highlight, categorize, annotate, search, restore, and export study notes from webpages.",
+  "description": "Выделяйте, распределяйте по категориям, комментируйте, ищите, восстанавливайте и экспортируйте учебные заметки с веб-страниц.",
   "permissions": ["storage", "tabs"],
   "host_permissions": ["<all_urls>"],
   "background": {
     "service_worker": "background.js"
   },
   "action": {
-    "default_title": "Study Highlighter",
+    "default_title": "Учебный маркер",
     "default_popup": "popup/popup.html",
     "default_icon": {
       "16": "icons/icon16.png",

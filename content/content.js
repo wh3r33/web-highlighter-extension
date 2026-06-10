@@ -1,8 +1,8 @@
 (function () {
   const CATEGORY_META = {
-    important: { label: "Important" },
-    definition: { label: "Definition" },
-    question: { label: "Question" }
+    important: { label: "Важное" },
+    definition: { label: "Определение" },
+    question: { label: "Вопрос" }
   };
 
   const INTERNAL_SELECTOR = ".study-highlighter-toolbar, .study-highlighter-action-popup, .study-highlighter-note-modal";
@@ -50,25 +50,25 @@
     toolbar = document.createElement("div");
     toolbar.className = "study-highlighter-toolbar";
     toolbar.setAttribute("role", "toolbar");
-    toolbar.setAttribute("aria-label", "Highlight actions");
+    toolbar.setAttribute("aria-label", "Действия с выделением");
     toolbar.innerHTML = `
-      <div class="study-highlighter-toolbar__category-strip" aria-label="Highlight category">
-        <button type="button" data-category="important" title="Important" aria-label="Important">
+      <div class="study-highlighter-toolbar__category-strip" aria-label="Категория выделения">
+        <button type="button" data-category="important" title="Важное" aria-label="Важное">
           <span class="study-highlighter-toolbar__index">01</span>
-          <span class="study-highlighter-toolbar__label">Important</span>
+          <span class="study-highlighter-toolbar__label">Важное</span>
         </button>
-        <button type="button" data-category="definition" title="Definition" aria-label="Definition">
+        <button type="button" data-category="definition" title="Определение" aria-label="Определение">
           <span class="study-highlighter-toolbar__index">02</span>
-          <span class="study-highlighter-toolbar__label">Definition</span>
+          <span class="study-highlighter-toolbar__label">Определение</span>
         </button>
-        <button type="button" data-category="question" title="Question" aria-label="Question">
+        <button type="button" data-category="question" title="Вопрос" aria-label="Вопрос">
           <span class="study-highlighter-toolbar__index">03</span>
-          <span class="study-highlighter-toolbar__label">Question</span>
+          <span class="study-highlighter-toolbar__label">Вопрос</span>
         </button>
       </div>
-      <button type="button" data-action="save" title="Save highlight" aria-label="Save highlight">
+      <button type="button" data-action="save" title="Сохранить выделение" aria-label="Сохранить выделение">
         <span class="study-highlighter-toolbar__save-mark">+</span>
-        <span>Save</span>
+        <span>Сохранить</span>
       </button>
     `;
     document.documentElement.appendChild(toolbar);
@@ -141,7 +141,7 @@
     actionPopup.innerHTML = `
       <button type="button">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 6h18"></path><path d="M8 6V4h8v2"></path><path d="M19 6l-1 14H6L5 6"></path><path d="M10 11v5"></path><path d="M14 11v5"></path></svg>
-        <span>REMOVE ARTIFACT</span>
+        <span>УДАЛИТЬ АРТЕФАКТ</span>
       </button>
     `;
     document.documentElement.appendChild(actionPopup);
@@ -282,21 +282,21 @@
     noteModal.hidden = true;
     noteModal.innerHTML = `
       <div class="study-highlighter-note-modal__panel" role="dialog" aria-modal="true" aria-labelledby="study-highlighter-note-title" aria-describedby="study-highlighter-note-helper">
-        <span class="study-highlighter-note-modal__eyebrow">ANNOTATION / OPTIONAL</span>
+        <span class="study-highlighter-note-modal__eyebrow">АННОТАЦИЯ / НЕОБЯЗАТЕЛЬНО</span>
         <div class="study-highlighter-note-modal__header">
           <p class="study-highlighter-note-modal__index">04</p>
-          <h2 id="study-highlighter-note-title">Add note</h2>
+          <h2 id="study-highlighter-note-title">Добавить заметку</h2>
         </div>
         <label class="study-highlighter-note-modal__field" for="study-highlighter-note-input">
-          <span>Highlight note</span>
-          <textarea id="study-highlighter-note-input" rows="4" placeholder="Write a short annotation"></textarea>
+          <span>Заметка к выделению</span>
+          <textarea id="study-highlighter-note-input" rows="4" placeholder="Напишите короткую аннотацию"></textarea>
         </label>
-        <p class="study-highlighter-note-modal__helper" id="study-highlighter-note-helper">optional annotation</p>
+        <p class="study-highlighter-note-modal__helper" id="study-highlighter-note-helper">необязательная аннотация</p>
         <div class="study-highlighter-note-modal__actions">
-          <button type="button" data-note-action="cancel">Cancel</button>
+          <button type="button" data-note-action="cancel">Отмена</button>
           <button type="button" data-note-action="save">
             <span class="study-highlighter-note-modal__save-mark">+</span>
-            <span>Save</span>
+            <span>Сохранить</span>
           </button>
         </div>
       </div>
