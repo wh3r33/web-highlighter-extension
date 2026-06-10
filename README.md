@@ -28,15 +28,26 @@
 
 ## Скриншоты
 
-> Скриншоты можно добавить позже в папку `docs/screenshots/`. Сейчас секция содержит заготовки для сдачи и документации.
 
 | Окно расширения | Плавающая панель |
 |---|---|
-| `docs/screenshots/popup.png`<br><br>Архив выделений, поиск, группировка, заметки и экспорт. | `docs/screenshots/toolbar.png`<br><br>Панель сохранения рядом с выделенным текстом на странице. |
-
-| Восстановление | Экспорт |
+| <img width="472" height="213" alt="a" src="https://github.com/user-attachments/assets/d6077a37-1290-4ef3-85ac-9d399dfb21ed" />|
 |---|---|
-| `docs/screenshots/restored-highlight.png`<br><br>Выделения повторно появляются после перезагрузки страницы. | `docs/screenshots/markdown-export.png`<br><br>Сохраненные фрагменты можно выгрузить в файл `.md`. |
+| Маркеры | important, defintion, question|
+|---|---|
+| <img width="606" height="158" alt="b" src="https://github.com/user-attachments/assets/0e2e1476-6927-4aa3-a4de-87ce51f79e3f" />|
+|---|---|
+| untilted | untilted|
+|---|---|
+| <img width="498" height="464" alt="c" src="https://github.com/user-attachments/assets/694cc896-794a-419f-9fc2-8c6248896049" />|
+|---|---|
+| untilted | untilted|
+|---|---|
+| <img width="436" height="606" alt="d" src="https://github.com/user-attachments/assets/b1450217-f691-489f-806c-298d2489769d" />|
+|---|---|
+| untilted | untilted|
+|---|---|
+| <img width="431" height="600" alt="abcd" src="https://github.com/user-attachments/assets/bc555fc8-994c-4914-9673-e42d48b71ecc" />|
 
 ---
 
